@@ -3,6 +3,7 @@ const router = express.Router()
 const Product = require('../model/product')
 const { InsertProduct, ViewProduct, DeleteProduct, UpdateProduct } = require('../controller/product')
 const {InsertParty,ViewParty,UpdateParty,DeleteParty} = require('../controller/party')
+const {InsertPurchase} = require('../controller/purchase')
 // router.get("/get",(req,res)=>{
 //     res.json({message:"hello"})
     
@@ -28,5 +29,7 @@ router.get('/view_party/:id',ViewParty)
 router.put('/party_update/:id',UpdateParty)
 
 router.delete('/party_delete/:id',DeleteParty)
+
+router.post('/purchase_insert',InsertPurchase)
 
 module.exports = router
