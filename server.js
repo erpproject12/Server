@@ -8,6 +8,11 @@ app.use(cors())
 const router  = require('./routers/product')
 app.use('/api',router)
 
+app.use((req,res,next)=>{
+    console.log(req.path,req.method);
+    next()
+})
+
 
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
@@ -18,3 +23,4 @@ mongoose.connect(process.env.MONGO_URI)
 .catch((error)=>{
     console.log(error)
 })
+
