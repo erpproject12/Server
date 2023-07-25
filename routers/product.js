@@ -30,6 +30,8 @@ router.put('/party_update/:id',UpdateParty)
 
 router.delete('/party_delete/:id',DeleteParty)
 
+//purchase
 router.post('/purchase_insert',InsertPurchase)
+
 
 module.exports = router

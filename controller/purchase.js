@@ -1,3 +1,4 @@
+
 const PurchaseSchema = require('../model/purchase');
 const dotenv = require('dotenv')
 
@@ -36,3 +37,4 @@ const InsertPurchase = async(req,res)=>{
     }
 }
 module.exports = {InsertPurchase}
+
