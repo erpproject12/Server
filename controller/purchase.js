@@ -1,42 +1,40 @@
 
-const dotenv = require("dotenv");
-const Purchase = require("../model/purchase");
+const PurchaseSchema = require('../model/purchase');
+const dotenv = require('dotenv')
 
-dotenv.config();
 
-// router.post('/insert', async(req,res)=>{
+const InsertPurchase = async(req,res)=>{
+    console.log(req);
+    try{
+        const {
+            BillNo,
+            BillDate,
+            Party,
+            rows,
+            SubTotal,
+            Discount,
+            Vat,
+            Freight,
+            gtotal,
 
-const InsertPurchase = async (req, res) => {
-  try {
-    console.log("hello");
+        }=req.body;
 
-    // console.log(req.body);
-    const {
-      bill_no,
-      party,
-      bill_date,
-      subtotal,
-      discount,
-      vat,
-      Freight,
-      gtotal,
-    } = req.body;
+        let purchase_insert = new PurchaseSchema({
+            party_id:Party,
+            purchase_bill_no:BillNo,
+            purchase_bill_date:BillDate,
+            purchase_total_price: SubTotal,
+            purchase_discount:Discount,
+            purchase_freight:Freight,
+            purchase_gtotal:gtotal,
+            purchase_vat:Vat,
+            item:rows
+        });
+        const purch = await purchase_insert.save();
+        res.json({purch})
+    }catch(error){
+        console.log("error" +error);
+    }
+}
+module.exports = {InsertPurchase}
 
-    let purchase_insert = new Purchase({
-      purchase_bill_no,
-      party_id,
-      purchase_bill_date,
-      purchase_total_price,
-      purchase_discount,
-      purchase_freight,
-      purchase_gtotal,
-    });
-
-    const purch = await purchase_insert.save();
-    res.json({ purch });
-  } catch (err) {
-    console.log("error" + err);
-  }
-};
-
-module.exports = { InsertPurchase };

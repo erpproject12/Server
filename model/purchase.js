@@ -8,10 +8,13 @@ const PurchaseSchema = new Schema({
         
     },
     party_id:{
-            // type: mongoose.Schema.Types.ObjectId,
-            // ref: 'party',
+
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'party',
             type:String
     },
+   
+
     party_code:{
         type:Number
     },
@@ -20,6 +23,13 @@ const PurchaseSchema = new Schema({
         require:true
 
     },
+
+    purchase_vat:{
+        type:Number,
+        require:true
+
+    },
+
     purchase_total_price:{
         type: Number,
         require:true
