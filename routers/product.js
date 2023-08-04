@@ -5,7 +5,7 @@ const { InsertProduct, ViewProduct, DeleteProduct, UpdateProduct } = require('..
 const {InsertParty,ViewParty,UpdateParty,DeleteParty} = require('../controller/party')
 const {UpdateOpeningStock1,UpdateOpeningStock2} = require('../controller/openingstock')
 const {InsertPurchase} = require('../controller/purchase')
-
+const {InsertPurchaseReturn,ViewPurchaseReturn,DeletePurchaseReturn,ViewUpdateParty} = require('../controller/purchaseReturn')
 const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
 
 
