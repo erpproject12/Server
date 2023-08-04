@@ -54,53 +54,6 @@ const PurchaseSchema = new Schema({
 
     item :[]
 
-//     {
-//         product_id:{
-//             // type:mongoose.Schema.Types.ObjectId,
-//             // ref:"product"
-//             type:String
-//         },
-//         product_name:{
-//             type:String,
-//             require:true
-//            },
-//            product_batch:{
-//             type:String,
-    
-//         },
-//         product_expirydate:{
-    
-//             type:Date,
-//         },
-//         purchase_quantity:{
-//             type:Number,
-//             require:true
-//         },
-//         purchase_price:{
-    
-//             type:Number,
-//             require:true
-//         },
-//         sales_price:{
-//             type:Number
-    
-//         },
-//         product_MRP_price:{
-    
-//             type:Number
-//         },
-//         product_discount:{
-//             type:Number
-    
-//         },
-//         product_tax:{
-//             type:Number
-//         },
-//         purchase_product_totalprice:{
-//             type:Number
-//         }
-
-// }
 
 })
 

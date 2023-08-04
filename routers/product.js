@@ -6,11 +6,8 @@ const {InsertParty,ViewParty,UpdateParty,DeleteParty} = require('../controller/p
 const {UpdateOpeningStock1,UpdateOpeningStock2} = require('../controller/openingstock')
 const {InsertPurchase} = require('../controller/purchase')
 
-const {InsertPurchaseReturn,ViewPurchaseReturn,DeletePurchaseReturn,ViewUpdateParty} = require('../controller/purchaseReturn')
-// router.get("/get",(req,res)=>{
-//     res.json({message:"hello"})
-    
-// })
+const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
+
 
 router.post('/insert', InsertProduct )
 
@@ -37,6 +34,17 @@ router.delete('/party_delete/:id',DeleteParty)
 router.post('/purchase_insert',InsertPurchase)
 
 
+router.post('/sale_insert',Insert_Sales_return)
+
+router.get("/view_sale_return",View_Sales_Return)
+
+router.get("/view_sales_return/:id",View_Sales_Return)
+
+router.put("/update_sales/:id",UpdateSalesReturn)
+
+router.delete("/delete_sales/:id",SalesDelete);
+
+
 //Purchase Return
 router.post('/purchasereturn_insert',InsertPurchaseReturn)
 router.get('/purchasereturn_view',ViewPurchaseReturn)
@@ -47,5 +55,6 @@ router.get('/updateparty_view/:id',ViewUpdateParty)
 //Opening Stocks
 router.put('/update_openingstock1/:id',UpdateOpeningStock1)
 router.put('/update_openingstock2/:id',UpdateOpeningStock2)
+
 
 module.exports = router
