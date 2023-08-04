@@ -6,19 +6,19 @@ const {Schema} = mongoose
 const ProductSchema = new Schema ({
     product_name:{
         type:String,
-        required:true
+        // required:true
     },
     product_code:{
         type:String,
-        required:true
+        // required:true
     },
     tax_code:{
         type:Number,
-        required:true
+        // required:true
     },
     product_description:{
         type:String,
-        required:true,
+        // required:true,
     },
     rack_no:{
         type:Number,
@@ -61,13 +61,47 @@ const ProductSchema = new Schema ({
         
     },
     date:{
-        type:Date,
-        default:Date.now
+        type:String,
+       
     },
     updated_date:{
+        type:String,
+       
+    },
+    product_id:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"product"
+        
+    },
+    batch:{
+        type:String,
+        
+    },
+    exp_date:{
         type:Date,
-        default:Date.now
-    }
+        
+    },
+    qty:{
+        type:Number,
+        
+    },
+    price:{
+        type:Number,
+        
+    },
+    sell_price:{
+        type:Number,
+        
+    },
+    MRP:{
+        type:Number,
+        
+    },
+    total:{
+        type:Number,
+        
+    },
+
 })
 
 module.exports=mongoose.model("product", ProductSchema)
