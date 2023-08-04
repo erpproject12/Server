@@ -4,10 +4,7 @@ const Product = require('../model/product')
 const { InsertProduct, ViewProduct, DeleteProduct, UpdateProduct } = require('../controller/product')
 const {InsertParty,ViewParty,UpdateParty,DeleteParty} = require('../controller/party')
 const {InsertPurchase} = require('../controller/purchase')
-// router.get("/get",(req,res)=>{
-//     res.json({message:"hello"})
-    
-// })
+const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
 
 router.post('/insert', InsertProduct )
 
@@ -32,4 +29,13 @@ router.delete('/party_delete/:id',DeleteParty)
 
 router.post('/purchase_insert',InsertPurchase)
 
+router.post('/sale_insert',Insert_Sales_return)
+
+router.get("/view_sale_return",View_Sales_Return)
+
+router.get("/view_sales_return/:id",View_Sales_Return)
+
+router.put("/update_sales/:id",UpdateSalesReturn)
+
+router.delete("/delete_sales/:id",SalesDelete);
 module.exports = router

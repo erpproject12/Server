@@ -11,18 +11,24 @@ dotenv.config()
 
     try{
     //   console.log("hello");
-
-    const { product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status } = req.body
-
-        let product_insert = new Product({ product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status })
-    
-    
         
+    const { product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status } = req.body
+    let product_insert = new Product({ product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status })
+    const products = Product.find({product_name})
+    if(products){
+        console.log("ture")
+    
+    }
+    
+    
+
+console.log(products);
+       
     
             const pro = await product_insert.save();
             res.json({pro})
     
-        }catch(err){
+     }catch(err){
     console.log("error"+err)
         }
       }
