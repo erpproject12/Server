@@ -13,20 +13,22 @@ const InsertProduct = async (req, res) => {
         
     const { product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status } = req.body
     let product_insert = new Product({ product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status })
-    const products = Product.find({product_name})
-    if(products){
-        console.log("ture")
+    const products = await Product.find({product_name:product_name})
+    if(products.length > 0){
+       
+       return res.send({copy:true})
+
     
-    }
+    }else{
     
     
 
-console.log(products);
+console.log(product_name);
        
     
             const pro = await product_insert.save();
-            res.json({pro})
-    
+            return res.json({pro})
+    }
      }catch(err){
     console.log("error"+err)
         }
