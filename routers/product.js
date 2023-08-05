@@ -5,8 +5,16 @@ const { InsertProduct, ViewProduct, DeleteProduct, UpdateProduct } = require('..
 const {InsertParty,ViewParty,UpdateParty,DeleteParty} = require('../controller/party')
 const {UpdateOpeningStock1,UpdateOpeningStock2} = require('../controller/openingstock')
 const {InsertPurchase} = require('../controller/purchase')
+
+const {InsertSales,ViewSales,DeleteSales,UpdateSales} = require('../controller/sales')
+// router.get("/get",(req,res)=>{
+//     res.json({message:"hello"})
+    
+// })
+
 const {InsertPurchaseReturn,ViewPurchaseReturn,DeletePurchaseReturn,ViewUpdateParty} = require('../controller/purchaseReturn')
-const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
+// const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
+
 
 
 router.post('/insert', InsertProduct )
@@ -34,15 +42,23 @@ router.delete('/party_delete/:id',DeleteParty)
 router.post('/purchase_insert',InsertPurchase)
 
 
-router.post('/sale_insert',Insert_Sales_return)
 
-router.get("/view_sale_return",View_Sales_Return)
+//sales
+router.post('/sales_insert',InsertSales)
+router.get('/view_sales',ViewSales)
+router.get('/view_sales/:id',ViewSales)
+router.delete('/delete_sales/:id',DeleteSales)
+router.put('/update_sales/:id',UpdateSales)
 
-router.get("/view_sales_return/:id",View_Sales_Return)
+// router.post('/sale_insert',Insert_Sales_return)
 
-router.put("/update_sales/:id",UpdateSalesReturn)
+// router.get("/view_sale_return",View_Sales_Return)
 
-router.delete("/delete_sales/:id",SalesDelete);
+// router.get("/view_sales_return/:id",View_Sales_Return)
+
+// router.put("/update_sales/:id",UpdateSalesReturn)
+
+// router.delete("/delete_sales/:id",SalesDelete);
 
 
 //Purchase Return
@@ -55,6 +71,7 @@ router.get('/updateparty_view/:id',ViewUpdateParty)
 //Opening Stocks
 router.put('/update_openingstock1/:id',UpdateOpeningStock1)
 router.put('/update_openingstock2/:id',UpdateOpeningStock2)
+
 
 
 module.exports = router
