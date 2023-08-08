@@ -1,17 +1,29 @@
 const express = require("express");
 const Product = require("../model/product");
 const dotenv = require("dotenv");
+const { body, validationResult } = require('express-validator');
 
 dotenv.config();
 
 // router.post('/insert', async(req,res)=>{
 
-const InsertProduct = async (req, res) => {
+const InsertProduct =
+
+async (req, res) => {
   try {
     //   console.log("hello");
 
         
     const { product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status } = req.body
+    
+    
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+      const success = false;
+      return res.status(400).json({success, errors:errors.array()})
+    } 
+    
+    
     let product_insert = new Product({ product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status })
     const products = Product.find({product_name})
     if(products){
