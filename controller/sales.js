@@ -6,6 +6,7 @@ const InsertSales = async(req,res)=>{
     try{
         const { 
             BillNo,
+            Invoice,
             Party,
             BillDate,
             SubTotal,
@@ -18,6 +19,7 @@ const InsertSales = async(req,res)=>{
 
          let sales_insert = new SalesSchema({
             sales_billno:BillNo,
+            invoice_no:Invoice,
             party_id:Party,
             sales_billdate:BillDate,
             sales_discount:Discount,
@@ -42,7 +44,7 @@ const ViewSales =async(req,res)=>{
 const sales = await SalesSchema.findById(req.params.id).populate([{path:'item.ItemName'},{path:'party_id'}]);
 return res.json(sales);
         }else{
-const sales = await SalesSchema.find().populate('party_id');
+const sales = await SalesSchema.find().populate([{path:'item.ItemName'},{path:'party_id'}]);
 return res.json(sales);
         }
     }catch(err){

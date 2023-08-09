@@ -7,13 +7,19 @@ const Sales_returnSchema = new Schema ({
     sales_return_bill:{
         type:Number
     },
+    credit_note_no:{
+        type:String
+    },
+    invoice_no:{
+        type:String
+    },
     
     party_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:party,
     },
    sales_return_date:{
-    type:Date,
+    type:String,
     require:true
    },
    sales_return_vat:{

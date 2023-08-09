@@ -13,7 +13,7 @@ const {InsertSales,ViewSales,DeleteSales,UpdateSales} = require('../controller/s
 // })
 
 const {InsertPurchaseReturn,ViewPurchaseReturn,DeletePurchaseReturn,ViewUpdateParty} = require('../controller/purchaseReturn')
-// const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
+const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
 
 
 
@@ -50,9 +50,9 @@ router.get('/view_sales/:id',ViewSales)
 router.delete('/delete_sales/:id',DeleteSales)
 router.put('/update_sales/:id',UpdateSales)
 
-// router.post('/sale_insert',Insert_Sales_return)
+router.post('/sale_insert_return',Insert_Sales_return)
 
-// router.get("/view_sale_return",View_Sales_Return)
+router.get("/view_sale_return",View_Sales_Return)
 
 // router.get("/view_sales_return/:id",View_Sales_Return)
 

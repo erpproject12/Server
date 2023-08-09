@@ -10,7 +10,11 @@ const SalesSchema = new Schema({
     },
     party_id:{
         type:mongoose.Schema.Types.ObjectId,
-        ref: 'party'
+        ref: party
+        
+    },
+    invoice_no:{
+        type:String
     },
   
     sales_billdate:{
@@ -54,7 +58,7 @@ const SalesSchema = new Schema({
         },
         ItemName:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:'product'
+            ref:product
         },
         Batch:{
             type:String
