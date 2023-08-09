@@ -1,10 +1,21 @@
 const SalesSchema = require('../model/sales');
 const dotenv =require('dotenv')
 
-const InsertSales = async(req,res)=>{
-    console.log(req);
-    try{
-        const { 
+async function generateInvoiceNumber() {
+    const today = new Date();
+    const formattedDate = `${today.getDate().toString().padStart(2, '0')}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getFullYear().toString().slice(-2)}`;
+    const latestInvoice = await SalesSchema.findOne().sort({ sales_invoice: -1 }).select('sales_invoice').exec();
+    const lastInvoiceNumber = latestInvoice? latestInvoice.sales_invoice : `INV-${formattedDate}-0`;
+    const lastInvoiceCounter = parseInt(lastInvoiceNumber.split('-')[2]);
+    const newInvoiceCounter = lastInvoiceCounter + 1;
+
+    return `INV-${formattedDate}-${newInvoiceCounter}`;
+}
+
+
+const InsertSales = async (req, res) => {
+    try {
+        const {
             BillNo,
             Party,
             BillDate,
@@ -14,27 +25,31 @@ const InsertSales = async(req,res)=>{
             Freight,
             gtotal,
             rows
-         }=req.body;
+        } = req.body;
 
-         let sales_insert = new SalesSchema({
-            sales_billno:BillNo,
-            party_id:Party,
-            sales_billdate:BillDate,
-            sales_discount:Discount,
-            sales_total:SubTotal,
-            sales_vat:Vat,
-            sales_freight:Freight,
-            sales_gtotal:gtotal,
-            item:rows
+        const salesInvoiceNumber = await generateInvoiceNumber();
 
-         });
-         const sales = await sales_insert.save();
-         res.json({sales})
+        let sales_insert = new SalesSchema({
+            sales_billno: BillNo,
+            party_id: Party,
+            sales_invoice: salesInvoiceNumber,
+            sales_billdate: BillDate,
+            sales_discount: Discount,
+            sales_total: SubTotal,
+            sales_vat: Vat,
+            sales_freight: Freight,
+            sales_gtotal: gtotal,
+            item: rows
+        });
 
-    }catch(err){
-console.log("error",+err)
+        const sales = await sales_insert.save();
+        res.json({ sales });
+    } catch (err) {
+        console.log("error", err.message);
+        res.status(500).json({ error: err.message }); // Send an error response to the client
     }
 }
+
 
 const ViewSales =async(req,res)=>{
     try{

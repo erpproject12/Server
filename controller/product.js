@@ -23,7 +23,7 @@ const InsertProduct = async (req, res) => {
     
     
 
-console.log(product_name);
+
        
     
             const pro = await product_insert.save();
