@@ -4,8 +4,8 @@ const dotenv =require('dotenv')
 async function generateInvoiceNumber() {
     const today = new Date();
     const formattedDate = `${today.getDate().toString().padStart(2, '0')}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getFullYear().toString().slice(-2)}`;
-    const latestInvoice = await SalesSchema.findOne().sort({ sales_invoice: -1 }).select('sales_invoice').exec();
-    const lastInvoiceNumber = latestInvoice? latestInvoice.sales_invoice : `INV-${formattedDate}-0`;
+    const latestInvoice = await SalesSchema.findOne().sort({ invoice_no: -1 }).select('invoice_no').exec();
+    const lastInvoiceNumber = latestInvoice? latestInvoice.invoice_no : `INV-${formattedDate}-0`;
     const lastInvoiceCounter = parseInt(lastInvoiceNumber.split('-')[2]);
     const newInvoiceCounter = lastInvoiceCounter + 1;
 
@@ -17,6 +17,7 @@ const InsertSales = async (req, res) => {
     try {
         const {
             BillNo,
+            Invoice,
             Party,
             BillDate,
             SubTotal,
@@ -25,6 +26,7 @@ const InsertSales = async (req, res) => {
             Freight,
             gtotal,
             rows
+
         } = req.body;
 
         const salesInvoiceNumber = await generateInvoiceNumber();
@@ -32,7 +34,7 @@ const InsertSales = async (req, res) => {
         let sales_insert = new SalesSchema({
             sales_billno: BillNo,
             party_id: Party,
-            sales_invoice: salesInvoiceNumber,
+            invoice_no: salesInvoiceNumber,
             sales_billdate: BillDate,
             sales_discount: Discount,
             sales_total: SubTotal,
@@ -57,7 +59,7 @@ const ViewSales =async(req,res)=>{
 const sales = await SalesSchema.findById(req.params.id).populate([{path:'item.ItemName'},{path:'party_id'}]);
 return res.json(sales);
         }else{
-const sales = await SalesSchema.find().populate('party_id');
+const sales = await SalesSchema.find().populate([{path:'item.ItemName'},{path:'party_id'}]);
 return res.json(sales);
         }
     }catch(err){

@@ -8,13 +8,18 @@ const SalesSchema = new Schema({
         type: String,
         required: true
     },
+
     party_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'party'
+
+        
     },
-    sales_invoice: {
-        type: String
+    invoice_no:{
+        type:String
+
     },
+   
     sales_billdate: {
         type: Date
     },
@@ -50,9 +55,11 @@ const SalesSchema = new Schema({
         id: {
             type: Number
         },
-        ItemName: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'product'
+
+        ItemName:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:product
+
         },
         Batch: {
             type: String

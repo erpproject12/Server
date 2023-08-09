@@ -3,29 +3,43 @@ const dotenv = require('dotenv');
 const { param } = require("../routers/product");
 const { findById, findByIdAndDelete } = require("../model/product");
 
+
+const credit=async()=>{
+const creditDate=new Date;
+const formattedDate=`${creditDate.getDate().toString().padStart(2,"0")}${(creditDate.getMonth()+1).toString().padStart(2,"0")}${creditDate.getYear().toString().slice(-2)}`;
+const latestCreditNote=await Sales_returnSchema.findOne().sort({credit_note_no:-1}).select('credit_note_no').exec();
+const lastCreditCount=latestCreditNote?latestCreditNote.credit_note_no:`CRD-${formattedDate}-0`;
+const lastCreditNumber=parseInt(lastCreditCount.split('-')[2]);
+const newCreditCount=lastCreditNumber+1;
+return `CRD-${formattedDate}-${newCreditCount}`
+}
+
 const Insert_Sales_return = async (req,res)=>{
     try{
         const {
-            BillNo,
-            BillDate,
-            Party,
-            rows,
-            SubTotal,
-            Discount,
-            Tax,
-            Freight,
-            gtotal,
+            billNo,
+            billDate,
+            partyId,
+            items,
+            subTotal,
+            discountAmount,
+            vatAmount,
+            grandTotalAmount,
+            invoiceNo
         }=req.body;
+        const sales_returnCreditno=await credit();
         let sales_return_insert = new Sales_returnSchema({
-            party_id:Party,
-            sales_return_date:BillDate,
-            sales_return_bill:BillNo,
-            sales_return_total:SubTotal,
-            sales_return_discount:Discount,
-            sales_return_freight:Freight,
-            sales_return_vat:Tax,
-            sales_return_gtotal:gtotal,
-            sales_return:rows
+           
+            credit_note_no:sales_returnCreditno,
+            invoice_no:invoiceNo,
+            party_id:partyId,
+            sales_return_date:billDate,
+            sales_return_bill:billNo,
+            sales_return_total:subTotal,
+            sales_return_discount:discountAmount,
+            sales_return_vat:vatAmount,
+            sales_return_gtotal:grandTotalAmount,
+            sales_return:items
 
         })
         const sale =  await sales_return_insert.save()
@@ -41,7 +55,7 @@ const View_Sales_Return = async(req,res) =>{
         const sale_return = await  Sales_returnSchema.findById(req.params.id).populate([{path : 'sales_return.ItemName'},{path : 'party_id'}]);
     return res.json(sale_return)
     }else{
-    const sale_return = await  Sales_returnSchema.find().populate("party_id");
+    const sale_return = await  Sales_returnSchema.find().populate([{path : 'sales_return.ItemName'},{path : 'party_id'}]);
     return res.json(sale_return)
     }
 }

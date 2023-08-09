@@ -6,30 +6,33 @@ dotenv.config();
 
 // router.post('/insert', async(req,res)=>{
 
-const InsertProduct = async (req, res) => {
+const InsertProduct =
+
+async (req, res) => {
   try {
     //   console.log("hello");
 
         
     const { product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status } = req.body
     let product_insert = new Product({ product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status })
-    const products = await Product.find({product_name:product_name})
-    if(products.length > 0){
-       
-       return res.send({copy:true})
 
+    const productname = await  Product.find({product_name:product_name})
+    const productcode = await  Product.find({product_code:product_code})
+    if(productname.length>0){
+        console.log("ture")
+         return res.send({copy:true})
+    }else if(productcode.length>0){
+      console.log("ture")
+      return res.send({copy:true})
     
+
     }else{
     
-    
-
-
-       
-    
             const pro = await product_insert.save();
-            return res.json({pro})
-    }
-     }catch(err){
+            res.json({pro})
+    
+    } }catch(err){
+
     console.log("error"+err)
         }
       }
