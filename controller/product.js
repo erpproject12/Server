@@ -1,7 +1,6 @@
 const express = require("express");
 const Product = require("../model/product");
 const dotenv = require("dotenv");
-const { body, validationResult } = require('express-validator');
 
 dotenv.config();
 
@@ -15,31 +14,23 @@ async (req, res) => {
 
         
     const { product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status } = req.body
-    
-    
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-      const success = false;
-      return res.status(400).json({success, errors:errors.array()})
-    } 
-    
-    
     let product_insert = new Product({ product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status })
-    const products = Product.find({product_name})
-    if(products){
+    const productname = await  Product.find({product_name:product_name})
+    const productcode = await  Product.find({product_code:product_code})
+    if(productname.length>0){
         console.log("ture")
-    
-    }
-    
+         return res.send({copy:true})
+    }else if(productcode.length>0){
+      console.log("ture")
+      return res.send({copy:true})
     
 
-console.log(products);
-       
+    }else{
     
             const pro = await product_insert.save();
             res.json({pro})
     
-     }catch(err){
+    } }catch(err){
     console.log("error"+err)
         }
       }
