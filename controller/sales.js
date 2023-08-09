@@ -1,10 +1,21 @@
 const SalesSchema = require('../model/sales');
 const dotenv =require('dotenv')
 
-const InsertSales = async(req,res)=>{
-    console.log(req);
-    try{
-        const { 
+async function generateInvoiceNumber() {
+    const today = new Date();
+    const formattedDate = `${today.getDate().toString().padStart(2, '0')}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getFullYear().toString().slice(-2)}`;
+    const latestInvoice = await SalesSchema.findOne().sort({ invoice_no: -1 }).select('invoice_no').exec();
+    const lastInvoiceNumber = latestInvoice? latestInvoice.invoice_no : `INV-${formattedDate}-0`;
+    const lastInvoiceCounter = parseInt(lastInvoiceNumber.split('-')[2]);
+    const newInvoiceCounter = lastInvoiceCounter + 1;
+
+    return `INV-${formattedDate}-${newInvoiceCounter}`;
+}
+
+
+const InsertSales = async (req, res) => {
+    try {
+        const {
             BillNo,
             Invoice,
             Party,
@@ -15,28 +26,32 @@ const InsertSales = async(req,res)=>{
             Freight,
             gtotal,
             rows
-         }=req.body;
 
-         let sales_insert = new SalesSchema({
-            sales_billno:BillNo,
-            invoice_no:Invoice,
-            party_id:Party,
-            sales_billdate:BillDate,
-            sales_discount:Discount,
-            sales_total:SubTotal,
-            sales_vat:Vat,
-            sales_freight:Freight,
-            sales_gtotal:gtotal,
-            item:rows
+        } = req.body;
 
-         });
-         const sales = await sales_insert.save();
-         res.json({sales})
+        const salesInvoiceNumber = await generateInvoiceNumber();
 
-    }catch(err){
-console.log("error",+err)
+        let sales_insert = new SalesSchema({
+            sales_billno: BillNo,
+            party_id: Party,
+            invoice_no: salesInvoiceNumber,
+            sales_billdate: BillDate,
+            sales_discount: Discount,
+            sales_total: SubTotal,
+            sales_vat: Vat,
+            sales_freight: Freight,
+            sales_gtotal: gtotal,
+            item: rows
+        });
+
+        const sales = await sales_insert.save();
+        res.json({ sales });
+    } catch (err) {
+        console.log("error", err.message);
+        res.status(500).json({ error: err.message }); // Send an error response to the client
     }
 }
+
 
 const ViewSales =async(req,res)=>{
     try{
