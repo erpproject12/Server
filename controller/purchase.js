@@ -36,5 +36,39 @@ const InsertPurchase = async(req,res)=>{
         console.log("error" +error);
     }
 }
-module.exports = {InsertPurchase}
+
+const ViewPurchase = async(req,res)=>{
+    try{
+        if(req.params.id){
+            const purchase = await PurchaseSchema.findById(req.params.id).populate([{path:'item.ItemName'},{path:'party_id'}]);
+            return res.json(purchase);
+        }else{
+            const purchase = await PurchaseSchema.find().populate([{path:'item.ItemName'},{path:'party_id'}]);
+            return res.json(purchase);
+        }
+    }catch(err){
+        console.log(err.message);
+        res.status(500).send("Internal some error occured");
+    }
+}
+
+
+const DeletePurchase = async(req,res)=>{
+    try{
+        let id  = req.params.id;
+        let purchase = await PurchaseSchema.findById(id);
+        if(!purchase){
+          res.json({success:false, message:"Sales item not found"});
+          return
+        }
+        let deletepurchase = await PurchaseSchema.findByIdAndDelete(id);
+        return res.json({success:true,deletepurchase})
+    }catch(err){
+        res.json({success:false,message:"Internal server error"});
+        console.log(err);
+    }
+}
+
+
+module.exports = {InsertPurchase, ViewPurchase,DeletePurchase}
 

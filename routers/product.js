@@ -4,7 +4,7 @@ const Product = require('../model/product')
 const { InsertProduct, ViewProduct, DeleteProduct, UpdateProduct } = require('../controller/product')
 const {InsertParty,ViewParty,UpdateParty,DeleteParty} = require('../controller/party')
 const {UpdateOpeningStock1,UpdateOpeningStock2} = require('../controller/openingstock')
-const {InsertPurchase} = require('../controller/purchase')
+const {InsertPurchase,ViewPurchase,DeletePurchase} = require('../controller/purchase')
 
 const {InsertSales,ViewSales,DeleteSales,UpdateSales} = require('../controller/sales')
 // router.get("/get",(req,res)=>{
@@ -40,8 +40,9 @@ router.delete('/party_delete/:id',DeleteParty)
 
 //purchase
 router.post('/purchase_insert',InsertPurchase)
-
-
+router.get('/view_purchase',ViewPurchase)
+router.get('/view_purchase/:id',ViewPurchase)
+router.delete('/delete_purchase/:id',DeletePurchase)
 
 //sales
 router.post('/sales_insert',InsertSales)

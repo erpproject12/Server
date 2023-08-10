@@ -58,7 +58,7 @@ const SalesSchema = new Schema({
 
         ItemName:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:product
+            ref:'product'
 
         },
         Batch: {
