@@ -16,6 +16,7 @@ const {Admin_login} = require('../controller/login');
 
 const {InsertPurchaseReturn,ViewPurchaseReturn,DeletePurchaseReturn,ViewUpdateParty} = require('../controller/purchaseReturn')
 const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
+const {Payment_Reciept_Insert,ViewPaymentReciept} = require('../controller/payment_reciept')
 
 
 
@@ -78,5 +79,10 @@ router.put('/update_openingstock2/:id',UpdateOpeningStock2)
 router.post('/admin_register',AdminRegister);
 //Admin Login
 router.post('/admin_login',Admin_login);
+
+//Pay Reciept
+router.post('/payment_reciept_insert',Payment_Reciept_Insert)
+router.get('/view_payment_reciept',ViewPaymentReciept)
+
 
 module.exports = router
