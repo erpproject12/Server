@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const product = require('./product');
-const party = require('./party');
+
 const { Schema } = mongoose;
 
 const SalesSchema = new Schema({
@@ -58,7 +57,7 @@ const SalesSchema = new Schema({
 
         ItemName:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:product
+            ref:'product'
 
         },
         Batch: {
