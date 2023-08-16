@@ -14,6 +14,7 @@ const {InsertSales,ViewSales,DeleteSales,UpdateSales} = require('../controller/s
 
 const {InsertPurchaseReturn,ViewPurchaseReturn,DeletePurchaseReturn,ViewUpdateParty} = require('../controller/purchaseReturn')
 const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
+const {Payment_Reciept_Insert,ViewPaymentReciept} = require('../controller/payment_reciept')
 
 
 
@@ -72,6 +73,8 @@ router.get('/updateparty_view/:id',ViewUpdateParty)
 router.put('/update_openingstock1/:id',UpdateOpeningStock1)
 router.put('/update_openingstock2/:id',UpdateOpeningStock2)
 
-
+//Pay Reciept
+router.post('/payment_reciept_insert',Payment_Reciept_Insert)
+router.get('/view_payment_reciept',ViewPaymentReciept)
 
 module.exports = router
