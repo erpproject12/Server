@@ -4,7 +4,7 @@ const Product = require('../model/product')
 const { InsertProduct, ViewProduct, DeleteProduct, UpdateProduct } = require('../controller/product')
 const {InsertParty,ViewParty,UpdateParty,DeleteParty} = require('../controller/party')
 const {UpdateOpeningStock1,UpdateOpeningStock2} = require('../controller/openingstock')
-const {InsertPurchase} = require('../controller/purchase')
+const {InsertPurchase,ViewPurchase,DeletePurchase} = require('../controller/purchase')
 
 const {InsertSales,ViewSales,DeleteSales,UpdateSales} = require('../controller/sales')
 const  {AdminRegister} = require('../controller/register');
@@ -18,6 +18,9 @@ const {InsertPurchaseReturn,ViewPurchaseReturn,DeletePurchaseReturn,ViewUpdatePa
 const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
 const {Payment_Reciept_Insert,ViewPaymentReciept} = require('../controller/payment_reciept')
 
+const {AdminRegister} = require('../controller/register')
+
+const {Admin_login} = require('../controller/login')
 
 
 router.post('/insert', InsertProduct )
@@ -43,8 +46,9 @@ router.delete('/party_delete/:id',DeleteParty)
 
 //purchase
 router.post('/purchase_insert',InsertPurchase)
-
-
+router.get('/view_purchase',ViewPurchase)
+router.get('/view_purchase/:id',ViewPurchase)
+router.delete('/delete_purchase/:id',DeletePurchase)
 
 //sales
 router.post('/sales_insert',InsertSales)
@@ -75,6 +79,7 @@ router.get('/updateparty_view/:id',ViewUpdateParty)
 router.put('/update_openingstock1/:id',UpdateOpeningStock1)
 router.put('/update_openingstock2/:id',UpdateOpeningStock2)
 
+
 //Admin Register
 router.post('/admin_register',AdminRegister);
 //Admin Login
@@ -83,6 +88,7 @@ router.post('/admin_login',Admin_login);
 //Pay Reciept
 router.post('/payment_reciept_insert',Payment_Reciept_Insert)
 router.get('/view_payment_reciept',ViewPaymentReciept)
+
 
 
 module.exports = router

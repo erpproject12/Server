@@ -52,7 +52,44 @@ const PurchaseSchema = new Schema({
         type:String
     },
 
-    item :[]
+    item :[{
+        id: {
+            type: Number
+        },
+
+        ItemName:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'product'
+
+        },
+        Batch: {
+            type: String
+        },
+        Qty: {
+            type: Number
+        },
+        Discount: {
+            type: Number
+        },
+        PPrice: {
+            type: Number
+        },
+        SPrice:{
+         type:Number
+        },
+        ExpDate: {
+            type: Date // Assuming this should be of type Date
+        },
+        MRP: {
+            type: Number
+        },
+        Tax: {
+            type: Number
+        },
+        Total: {
+            type: Number
+        }
+    }]
 
 
 })
