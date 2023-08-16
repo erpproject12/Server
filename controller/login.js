@@ -7,8 +7,10 @@ const Admin_login = async(req,res)=>{
     const {email,password}=req.body
     const admin = await RegisterShcema.findOne({email})
     if(!admin){
+
         const success = false;
         return res.status(400).json({ success, error: "incorrect" })
+
     }
     const passwordCompare = await bcrypt.compare(password,admin.password)
     if(!passwordCompare){

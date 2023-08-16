@@ -7,6 +7,8 @@ const {UpdateOpeningStock1,UpdateOpeningStock2} = require('../controller/opening
 const {InsertPurchase,ViewPurchase,DeletePurchase} = require('../controller/purchase')
 
 const {InsertSales,ViewSales,DeleteSales,UpdateSales} = require('../controller/sales')
+const  {AdminRegister} = require('../controller/register');
+const {Admin_login} = require('../controller/login');
 // router.get("/get",(req,res)=>{
 //     res.json({message:"hello"})
     
@@ -14,6 +16,7 @@ const {InsertSales,ViewSales,DeleteSales,UpdateSales} = require('../controller/s
 
 const {InsertPurchaseReturn,ViewPurchaseReturn,DeletePurchaseReturn,ViewUpdateParty} = require('../controller/purchaseReturn')
 const {Insert_Sales_return,View_Sales_Return,UpdateSalesReturn,SalesDelete} = require('../controller/sales_return')
+const {Payment_Reciept_Insert,ViewPaymentReciept} = require('../controller/payment_reciept')
 
 const {AdminRegister} = require('../controller/register')
 
@@ -76,9 +79,16 @@ router.get('/updateparty_view/:id',ViewUpdateParty)
 router.put('/update_openingstock1/:id',UpdateOpeningStock1)
 router.put('/update_openingstock2/:id',UpdateOpeningStock2)
 
-//Register
-router.post('/admin_register',AdminRegister)
-router.post('/admin_login',Admin_login)
+
+//Admin Register
+router.post('/admin_register',AdminRegister);
+//Admin Login
+router.post('/admin_login',Admin_login);
+
+//Pay Reciept
+router.post('/payment_reciept_insert',Payment_Reciept_Insert)
+router.get('/view_payment_reciept',ViewPaymentReciept)
+
 
 
 module.exports = router
