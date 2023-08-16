@@ -7,6 +7,8 @@ const {UpdateOpeningStock1,UpdateOpeningStock2} = require('../controller/opening
 const {InsertPurchase} = require('../controller/purchase')
 
 const {InsertSales,ViewSales,DeleteSales,UpdateSales} = require('../controller/sales')
+const  {AdminRegister} = require('../controller/register');
+const {Admin_login} = require('../controller/login');
 // router.get("/get",(req,res)=>{
 //     res.json({message:"hello"})
     
@@ -72,6 +74,9 @@ router.get('/updateparty_view/:id',ViewUpdateParty)
 router.put('/update_openingstock1/:id',UpdateOpeningStock1)
 router.put('/update_openingstock2/:id',UpdateOpeningStock2)
 
-
+//Admin Register
+router.post('/admin_register',AdminRegister);
+//Admin Login
+router.post('/admin_login',Admin_login);
 
 module.exports = router

@@ -17,13 +17,11 @@ async (req, res) => {
     let product_insert = new Product({ product_name, product_code, tax_code, product_description,rack_no, HSN, product_barcode,category,manufactures,unit_of_masure,weight_dimension,variants,reorder_point,active_status })
 
     const productname = await  Product.find({product_name:product_name})
-    const productcode = await  Product.find({product_code:product_code})
+   
     if(productname.length>0){
         console.log("ture")
          return res.send({copy:true})
-    }else if(productcode.length>0){
-      console.log("ture")
-      return res.send({copy:true})
+    
     
 
     }else{

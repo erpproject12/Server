@@ -6,6 +6,7 @@ dotenv.config()
 const InsertParty = async (req,res)=>{
 try{
     const {party_name,party_phone,party_email,party_address,party_street,party_city,party_state,party_pincode,party_country,party_GST,party_account_type,party_creadit_limit,party_creadit_days} =req.body
+    
     let party_insert = new Partyschema ({ party_name,party_phone,party_email,party_address,party_street,party_city,party_state,party_pincode,party_country,party_GST,party_account_type,party_creadit_limit,party_creadit_days})
 
     const party =await party_insert.save();
